@@ -9,19 +9,20 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class UserManagerInterfaceImpl implements UserManagerInterface {
     private final IdentifierMapper<UUID,UserDataTransfer,UserSnapshot> identifierMapper;
     private final Repository<UUID,UserDataTransfer,UserSnapshot> repository;
     private final AsyncPersistenceStorage<UserDataTransfer,UserSnapshot> storage;
-    private final Cleaner cleaner;
+    private final Cleaner<UUID> cleaner;
 
     public UserManagerInterfaceImpl(
             IdentifierMapper<UUID, UserDataTransfer, UserSnapshot> identifierMapper,
             Repository<UUID, UserDataTransfer, UserSnapshot> repository,
             AsyncPersistenceStorage<UserDataTransfer, UserSnapshot> storage,
-            Cleaner cleaner
+            Cleaner<UUID> cleaner
     ) {
         this.identifierMapper = identifierMapper;
         this.repository = repository;
@@ -66,32 +67,57 @@ public class UserManagerInterfaceImpl implements UserManagerInterface {
     }
 
     @Override
-    public void saveToStorage(UserDataTransfer transfer) {
+    public void save(UserDataTransfer transfer) {
         this.storage.save(transfer).join();
     }
 
     @Override
-    public void loadFromStorage(UserDataTransfer transfer) {
+    public void load(UserDataTransfer transfer) {
         this.storage.load(transfer).join();
     }
 
     @Override
-    public CompletableFuture<Void> saveToStorageAsync(UserDataTransfer transfer) {
+    public CompletableFuture<Void> saveAsync(UserDataTransfer transfer) {
         return this.storage.save(transfer);
     }
 
     @Override
-    public CompletableFuture<Void> loadFromStorageAsync(UserDataTransfer transfer) {
+    public CompletableFuture<Void> loadAsync(UserDataTransfer transfer) {
         return this.storage.load(transfer);
     }
 
     @Override
-    public void disableExpiration(UUID id) {
+    public void loadIfOffline(UserDataTransfer transfer) {
 
     }
 
     @Override
-    public void enableExpiration(UUID id) {
+    public CompletableFuture<Void> loadIfOfflineAsync(UserDataTransfer transfer) {
+        return null;
+    }
 
+    @Override
+    public void edit(UUID id, Consumer<UserDataTransfer> consumer) {
+
+    }
+
+    @Override
+    public void editAsync(UUID id, Consumer<UserDataTransfer> consumer) {
+
+    }
+
+    @Override
+    public void disableExpiration(UUID id) {
+        this.cleaner.keep(id);
+    }
+
+    @Override
+    public void enableExpiration(UUID id) {
+        this.cleaner.unkeep(id);
+    }
+
+    @Override
+    public void registerUsage(UUID id) {
+        this.cleaner.registerFresh(id);
     }
 }

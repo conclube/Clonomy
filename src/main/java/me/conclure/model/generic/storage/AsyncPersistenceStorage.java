@@ -1,10 +1,14 @@
 package me.conclure.model.generic.storage;
 
+import me.conclure.annotation.NonNull;
+import me.conclure.annotation.ThreadSafe;
 import me.conclure.model.generic.DataTransfer;
 import me.conclure.model.generic.Snapshot;
 
 import java.util.concurrent.CompletableFuture;
 
+@ThreadSafe
+@NonNull
 public interface AsyncPersistenceStorage<D extends DataTransfer<S>,S extends Snapshot<S>> {
     CompletableFuture<Void> load(D transfer);
 

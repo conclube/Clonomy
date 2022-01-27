@@ -15,4 +15,9 @@ public class UserDataTransferImpl extends DataTransferBase<UserSnapshot> impleme
     public UUID id() {
         return this.id;
     }
+
+    @Override
+    public boolean isOnline() {
+        return false;
+    }
 }

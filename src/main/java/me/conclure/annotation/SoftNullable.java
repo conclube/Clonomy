@@ -12,8 +12,9 @@ import java.lang.annotation.Target;
         ElementType.METHOD,
         ElementType.CONSTRUCTOR,
 })
-@Repeatable(Nullable.Repeat.class)
-public @interface Nullable {
+@Repeatable(SoftNullable.Repeat.class)
+public @interface SoftNullable {
+
     @Target({
             ElementType.TYPE,
             ElementType.ANNOTATION_TYPE,
@@ -23,6 +24,6 @@ public @interface Nullable {
             ElementType.CONSTRUCTOR,
     })
     @interface Repeat {
-        Nullable[] value();
+        SoftNullable[] value();
     }
 }
