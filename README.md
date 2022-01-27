@@ -1,3 +1,3 @@
 # Clonomy
 
-A work in progress economy plugin which aims to be flexible, feature rich and accessible. 
+A work in progress economy plugin which aims to be flexible, feature rich and accessible. Adding some features I personally felt are missing from other economy plugins...
