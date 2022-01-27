@@ -1,0 +1,16 @@
+package me.conclure.model.generic.storage;
+
+import me.conclure.model.generic.DataTransfer;
+import me.conclure.model.generic.Snapshot;
+
+import java.util.concurrent.CompletableFuture;
+
+public interface AsyncPersistenceStorage<D extends DataTransfer<S>,S extends Snapshot<S>> {
+    CompletableFuture<Void> load(D transfer);
+
+    CompletableFuture<Void> save(D transfer);
+
+    CompletableFuture<Void> saveAll(Iterable<? extends D> transfers);
+
+    CompletableFuture<Void> loadAll(Iterable<? extends D> transfers);
+}

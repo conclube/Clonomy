@@ -1,18 +1,18 @@
 package me.conclure.model.generic.impl;
 
-import me.conclure.model.generic.GenericSnapshot;
-import me.conclure.model.generic.GenericDataTransfer;
+import me.conclure.model.generic.Snapshot;
+import me.conclure.model.generic.DataTransfer;
 
-public class DataTransferBase<S extends GenericSnapshot<S>> implements GenericDataTransfer<S> {
+public class DataTransferBase<S extends Snapshot<S>> implements DataTransfer<S> {
     private volatile S data;
 
     @Override
-    public S snapshotData() {
+    public S snapshot() {
         return this.data;
     }
 
     @Override
-    public void setData(S data) {
+    public void setSnapshot(S data) {
         this.data = data;
     }
 }

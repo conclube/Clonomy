@@ -1,6 +1,8 @@
 package me.conclure.model.user;
 
-import me.conclure.model.generic.GenericSnapshot;
+import me.conclure.model.generic.Snapshot;
 
-public interface UserSnapshot extends GenericSnapshot<UserSnapshot> {
+public interface UserSnapshot extends Snapshot<UserSnapshot> {
+
+    UserSnapshot username(String username);
 }

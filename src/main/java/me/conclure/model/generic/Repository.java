@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Function;
 
-public interface GenericDataTransferRepository<I,T extends GenericDataTransfer<S>, S extends GenericSnapshot<S>> extends Iterable<T> {
+public interface Repository<I,T extends DataTransfer<S>, S extends Snapshot<S>> extends Iterable<T> {
 
     Optional<T> getIfPresent(I identifier);
 
@@ -17,4 +17,6 @@ public interface GenericDataTransferRepository<I,T extends GenericDataTransfer<S
 
     @Override
     Iterator<T> iterator();
+
+    boolean invalidate(I identifier);
 }

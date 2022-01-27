@@ -1,9 +1,9 @@
 package me.conclure.model.generic.storage;
 
-import me.conclure.model.generic.GenericSnapshot;
-import me.conclure.model.generic.GenericDataTransfer;
+import me.conclure.model.generic.Snapshot;
+import me.conclure.model.generic.DataTransfer;
 
-public interface GenericDataTransferPersistenceStorage<D extends GenericDataTransfer<S>,S extends GenericSnapshot<S>> {
+public interface PersistenceStorage<D extends DataTransfer<S>,S extends Snapshot<S>> {
 
     void load(D transfer);
 

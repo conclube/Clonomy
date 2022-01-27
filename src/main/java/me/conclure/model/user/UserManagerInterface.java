@@ -16,7 +16,7 @@ public interface UserManagerInterface {
 
     boolean invalidate(UUID id);
 
-    Collection<UserDataTransfer> getAllCached();
+    Collection<? extends UserDataTransfer> getAllCached();
 
     <R> Collection<? extends R> applyAndGetAllCached(Function<UserDataTransfer,? extends R> transformer);
 
