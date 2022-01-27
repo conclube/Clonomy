@@ -1,10 +1,10 @@
 package me.conclure;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.UUID;
+import java.util.function.Function;
 
-public interface UserRepository extends Iterator<UserDataTransfer> {
+public interface UserRepository extends Iterable<UserDataTransfer> {
 
     static UserRepository create() {
         return new UserRepositoryImpl();
@@ -16,5 +16,5 @@ public interface UserRepository extends Iterator<UserDataTransfer> {
 
     Collection<? extends UserDataTransfer> getAll();
 
-    <R> Collection<? extends R> applyAndGetAll();
+    <R> Collection<? extends R> applyAndGetAll(Function<?super UserDataTransfer,?extends R> transformer);
 }
