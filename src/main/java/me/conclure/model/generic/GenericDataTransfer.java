@@ -1,12 +1,8 @@
-package me.conclure;
-
-import me.conclure.annotation.NonNull;
-import me.conclure.annotation.Nullable;
+package me.conclure.model.generic;
 
 import java.util.function.Function;
-import java.util.function.UnaryOperator;
 
-public interface DataTransferHolder<S extends DataSnapshot> {
+public interface GenericDataTransfer<S extends GenericSnapshot<S>> {
     S snapshotData();
 
     void setData(S data);
