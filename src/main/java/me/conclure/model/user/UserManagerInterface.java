@@ -14,6 +14,8 @@ public interface UserManagerInterface {
 
     Optional<UserDataTransfer> getIfCached(UUID id);
 
+    boolean isCached(UUID id);
+
     boolean invalidate(UUID id);
 
     Collection<? extends UserDataTransfer> getAllCached();

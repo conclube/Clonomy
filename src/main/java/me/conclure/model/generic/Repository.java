@@ -19,4 +19,6 @@ public interface Repository<I,T extends DataTransfer<S>, S extends Snapshot<S>> 
     Iterator<T> iterator();
 
     boolean invalidate(I identifier);
+
+    boolean isContained(I identifier);
 }

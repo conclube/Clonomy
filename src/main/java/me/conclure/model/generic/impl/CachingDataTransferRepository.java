@@ -35,4 +35,9 @@ public class CachingDataTransferRepository<I, T extends DataTransfer<S>, S exten
     public Iterator<T> iterator() {
         return null;
     }
+
+    @Override
+    public boolean invalidate(I identifier) {
+        return false;
+    }
 }

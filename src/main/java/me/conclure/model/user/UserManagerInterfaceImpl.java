@@ -45,6 +45,11 @@ public class UserManagerInterfaceImpl implements UserManagerInterface {
     }
 
     @Override
+    public boolean isCached(UUID id) {
+        return this.repository.isContained(id);
+    }
+
+    @Override
     public boolean invalidate(UUID id) {
         return this.repository.invalidate(id);
     }
