@@ -51,6 +51,7 @@ public class UserManagerInterfaceImpl implements UserManagerInterface {
 
     @Override
     public boolean invalidate(UUID id) {
+        this.enableExpiration(id);
         return this.repository.invalidate(id);
     }
 
