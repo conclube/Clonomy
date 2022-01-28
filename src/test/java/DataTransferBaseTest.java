@@ -84,4 +84,42 @@ public class DataTransferBaseTest {
 
         assertEquals(dataTransferBase.snapshot().object(),expectedTotalCountAmount);
     }
+
+    @Test
+    void testGetAndSetInMultipleThreads() {
+        MockSnapshot<Integer> snapshot = new MockSnapshot<>(0);
+        dataTransferBase.setSnapshot(snapshot);
+        var threadAmount = 100;
+        var countAmount = 100_000;
+        var expectedTotalCountAmount = countAmount*threadAmount;
+
+        CountDownLatch startRaceLatch = new CountDownLatch(1);
+        CountDownLatch finishRaceLatch = new CountDownLatch(threadAmount);
+
+        for (int i = 0; i < threadAmount; i++) {
+            new Thread(() -> {
+                try {
+                    startRaceLatch.await();
+                } catch (InterruptedException e) {
+                    fail(e);
+                }
+                for (int j = 0; j < countAmount; j++) {
+                    //noinspection unchecked
+                    MockSnapshot<Integer> tempSnapshot = dataTransferBase.snapshot();
+                    dataTransferBase.setSnapshot(tempSnapshot.object(tempSnapshot.object()+1));
+                }
+                finishRaceLatch.countDown();
+            }).start();
+        }
+
+        startRaceLatch.countDown();
+
+        try {
+            finishRaceLatch.await();
+        } catch (InterruptedException e) {
+            fail(e);
+        }
+
+        assertNotEquals(dataTransferBase.snapshot().object(),expectedTotalCountAmount);
+    }
 }
