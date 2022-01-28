@@ -45,6 +45,9 @@ public class DataTransferBaseTest {
         assertSame(ref.snapshot, dataTransferBase.snapshot());
     }
 
+    /*
+    Tests the atomicity of DataTransferBase::editSnapshot
+     */
     @Test
     void testEditInMultipleThreads() {
         MockSnapshot<Integer> snapshot = new MockSnapshot<>(0);
