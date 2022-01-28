@@ -45,6 +45,11 @@ public class DataTransferBaseTest {
         assertSame(ref.snapshot, dataTransferBase.snapshot());
     }
 
+    /*
+    Tests the atomicity of DataTransferBase::editSnapshot
+    by simulating a race condition with 100 threads manipulating
+    a shared variable from DataTransferBase.
+     */
     @Test
     void testEditInMultipleThreads() {
         MockSnapshot<Integer> snapshot = new MockSnapshot<>(0);
