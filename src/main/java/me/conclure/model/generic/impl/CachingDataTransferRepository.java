@@ -1,7 +1,7 @@
 package me.conclure.model.generic.impl;
 
 import me.conclure.model.generic.DataTransfer;
-import me.conclure.model.generic.Repository;
+import me.conclure.model.generic.CachingRepository;
 import me.conclure.model.generic.Snapshot;
 
 import java.util.Collection;
@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class CachingDataTransferRepository<I, T extends DataTransfer<S>, S extends Snapshot<S>> implements Repository<I, T, S> {
+public class CachingDataTransferRepository<I, T extends DataTransfer<?>> implements CachingRepository<I, T> {
 
     @Override
     public Optional<T> getIfPresent(I identifier) {
@@ -38,6 +38,11 @@ public class CachingDataTransferRepository<I, T extends DataTransfer<S>, S exten
 
     @Override
     public boolean invalidate(I identifier) {
+        return false;
+    }
+
+    @Override
+    public boolean isContained(I identifier) {
         return false;
     }
 }

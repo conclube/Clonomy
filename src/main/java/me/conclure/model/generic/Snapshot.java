@@ -1,10 +1,12 @@
 package me.conclure.model.generic;
 
+import me.conclure.annotation.AlwaysNew;
 import me.conclure.annotation.NonNull;
 import me.conclure.annotation.ThreadSafe;
 
 @ThreadSafe
 @NonNull
-public interface Snapshot<S extends Snapshot<S>> {
-    S copy();
+public interface Snapshot {
+    @AlwaysNew
+    Snapshot copy();
 }

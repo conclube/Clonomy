@@ -2,7 +2,7 @@ package me.conclure.model.user;
 
 import me.conclure.model.generic.Cleaner;
 import me.conclure.model.generic.IdentifierMapper;
-import me.conclure.model.generic.Repository;
+import me.conclure.model.generic.CachingRepository;
 import me.conclure.model.generic.storage.AsyncPersistenceStorage;
 
 import java.util.Collection;
@@ -13,15 +13,15 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class UserManagerInterfaceImpl implements UserManagerInterface {
-    private final IdentifierMapper<UUID, UserDataTransfer, UserSnapshot> identifierMapper;
-    private final Repository<UUID, UserDataTransfer, UserSnapshot> repository;
-    private final AsyncPersistenceStorage<UserDataTransfer, UserSnapshot> storage;
+    private final IdentifierMapper<UUID, UserDataTransfer> identifierMapper;
+    private final CachingRepository<UUID, UserDataTransfer> repository;
+    private final AsyncPersistenceStorage<UserDataTransfer> storage;
     private final Cleaner<UUID> cleaner;
 
     public UserManagerInterfaceImpl(
-            IdentifierMapper<UUID, UserDataTransfer, UserSnapshot> identifierMapper,
-            Repository<UUID, UserDataTransfer, UserSnapshot> repository,
-            AsyncPersistenceStorage<UserDataTransfer, UserSnapshot> storage,
+            IdentifierMapper<UUID, UserDataTransfer> identifierMapper,
+            CachingRepository<UUID, UserDataTransfer> repository,
+            AsyncPersistenceStorage<UserDataTransfer> storage,
             Cleaner<UUID> cleaner
     ) {
         this.identifierMapper = identifierMapper;
@@ -118,6 +118,6 @@ public class UserManagerInterfaceImpl implements UserManagerInterface {
 
     @Override
     public void registerUsage(UUID id) {
-        this.cleaner.registerFresh(id);
+        this.cleaner.registerAsFresh(id);
     }
 }

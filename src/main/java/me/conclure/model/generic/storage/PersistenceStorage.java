@@ -5,7 +5,7 @@ import me.conclure.model.generic.DataTransfer;
 import me.conclure.model.generic.Snapshot;
 
 @NonNull
-public interface PersistenceStorage<D extends DataTransfer<S>, S extends Snapshot<S>> {
+public interface PersistenceStorage<D extends DataTransfer<?>> {
 
     void load(D transfer);
 

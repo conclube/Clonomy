@@ -8,13 +8,11 @@ import java.util.function.Function;
 
 @ThreadSafe
 @NonNull
-public interface DataTransfer<S extends Snapshot<S>> {
+public interface DataTransfer<S extends Snapshot> {
     @Nullable
     S snapshot();
 
     void setSnapshot(@Nullable S data);
 
-    default void editData(Function<@Nullable ? super S, @Nullable ? extends S> editor) {
-        this.setSnapshot(editor.apply(this.snapshot()));
-    }
+    void editSnapshot(Function<@Nullable ? super S, @Nullable ? extends S> editor);
 }

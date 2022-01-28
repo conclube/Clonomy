@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @ThreadSafe
 @NonNull
-public interface Repository<I, T extends DataTransfer<S>, S extends Snapshot<S>> extends Iterable<T> {
+public interface CachingRepository<I, T extends DataTransfer<?>> extends Iterable<T> {
 
     Optional<T> getIfPresent(I identifier);
 
