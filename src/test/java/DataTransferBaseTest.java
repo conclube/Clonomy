@@ -17,7 +17,7 @@ public class DataTransferBaseTest {
     }
 
     @Test
-    void testNullableSnapshotAfterCreation() {
+    void testIsSnapshotAbsentAfterInstantiation() {
         assertNull(dataTransferBase.snapshot());
     }
 
