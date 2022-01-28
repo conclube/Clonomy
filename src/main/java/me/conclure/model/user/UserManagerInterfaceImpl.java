@@ -13,9 +13,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class UserManagerInterfaceImpl implements UserManagerInterface {
-    private final IdentifierMapper<UUID,UserDataTransfer,UserSnapshot> identifierMapper;
-    private final Repository<UUID,UserDataTransfer,UserSnapshot> repository;
-    private final AsyncPersistenceStorage<UserDataTransfer,UserSnapshot> storage;
+    private final IdentifierMapper<UUID, UserDataTransfer, UserSnapshot> identifierMapper;
+    private final Repository<UUID, UserDataTransfer, UserSnapshot> repository;
+    private final AsyncPersistenceStorage<UserDataTransfer, UserSnapshot> storage;
     private final Cleaner<UUID> cleaner;
 
     public UserManagerInterfaceImpl(

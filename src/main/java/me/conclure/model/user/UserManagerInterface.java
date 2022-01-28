@@ -26,7 +26,7 @@ public interface UserManagerInterface {
 
     Collection<? extends UserDataTransfer> getAllCached();
 
-    <R> Collection<? extends R> applyAndGetAllCached(Function<UserDataTransfer,? extends R> transformer);
+    <R> Collection<? extends R> applyAndGetAllCached(Function<UserDataTransfer, ? extends R> transformer);
 
     void save(UserDataTransfer transfer);
 

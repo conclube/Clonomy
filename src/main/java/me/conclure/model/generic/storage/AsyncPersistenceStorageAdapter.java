@@ -5,8 +5,8 @@ import me.conclure.model.generic.Snapshot;
 
 import java.util.concurrent.CompletableFuture;
 
-public class AsyncPersistenceStorageAdapter<D extends DataTransfer<S>,S extends Snapshot<S>> implements AsyncPersistenceStorage<D,S> {
-    private final PersistenceStorage<D,S> delegate;
+public class AsyncPersistenceStorageAdapter<D extends DataTransfer<S>, S extends Snapshot<S>> implements AsyncPersistenceStorage<D, S> {
+    private final PersistenceStorage<D, S> delegate;
 
     public AsyncPersistenceStorageAdapter(PersistenceStorage<D, S> delegate) {
         this.delegate = delegate;

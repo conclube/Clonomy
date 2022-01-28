@@ -10,7 +10,7 @@ import java.util.function.Function;
 
 @ThreadSafe
 @NonNull
-public interface Repository<I,T extends DataTransfer<S>, S extends Snapshot<S>> extends Iterable<T> {
+public interface Repository<I, T extends DataTransfer<S>, S extends Snapshot<S>> extends Iterable<T> {
 
     Optional<T> getIfPresent(I identifier);
 
@@ -18,7 +18,7 @@ public interface Repository<I,T extends DataTransfer<S>, S extends Snapshot<S>> 
 
     Collection<? extends T> getAll();
 
-    <R> Collection<? extends R> applyAndGetAll(Function<? super T,? extends R> transformer);
+    <R> Collection<? extends R> applyAndGetAll(Function<? super T, ? extends R> transformer);
 
     @Override
     Iterator<T> iterator();

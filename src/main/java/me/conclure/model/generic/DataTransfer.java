@@ -14,7 +14,7 @@ public interface DataTransfer<S extends Snapshot<S>> {
 
     void setSnapshot(@Nullable S data);
 
-    default void editData(Function<@Nullable? super S,@Nullable? extends S> editor) {
+    default void editData(Function<@Nullable ? super S, @Nullable ? extends S> editor) {
         this.setSnapshot(editor.apply(this.snapshot()));
     }
 }

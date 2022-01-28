@@ -1,8 +1,6 @@
 package me.conclure.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Repeatable;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 @Target({
         ElementType.TYPE,
@@ -12,6 +10,7 @@ import java.lang.annotation.Target;
         ElementType.METHOD,
         ElementType.CONSTRUCTOR,
 })
+@Retention(RetentionPolicy.RUNTIME)
 @Repeatable(SoftNonNull.Repeat.class)
 public @interface SoftNonNull {
 
@@ -23,6 +22,7 @@ public @interface SoftNonNull {
             ElementType.METHOD,
             ElementType.CONSTRUCTOR,
     })
+    @Retention(RetentionPolicy.RUNTIME)
     @interface Repeat {
         SoftNonNull[] value();
     }
