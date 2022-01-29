@@ -1,7 +1,9 @@
-package me.conclure.model.generic.storage;
+package me.conclure.model.generic.storage.impl;
 
 import me.conclure.model.generic.DataTransfer;
 import me.conclure.model.generic.Snapshot;
+import me.conclure.model.generic.storage.AsyncPersistenceStorage;
+import me.conclure.model.generic.storage.PersistenceStorage;
 
 import java.util.concurrent.CompletableFuture;
 

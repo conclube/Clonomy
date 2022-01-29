@@ -1,15 +1,12 @@
 package me.conclure.model.user;
 
 import me.conclure.annotation.AlwaysNew;
-import me.conclure.model.currency.Currency;
 import me.conclure.model.generic.Snapshot;
-
-import java.util.IdentityHashMap;
 
 public interface UserSnapshot extends Snapshot {
 
     static UserSnapshot create(String username) {
-        return new UserSnapshotImpl(username,new IdentityHashMap<>());
+        return new UserSnapshotImpl(username);
     }
 
     static UserSnapshot create() {
@@ -23,9 +20,4 @@ public interface UserSnapshot extends Snapshot {
 
     @AlwaysNew
     UserSnapshot username(String username);
-
-    <N extends Number> N balance(Currency<N> currency);
-
-    @AlwaysNew
-    <N extends Number> UserSnapshot balance(Currency<N> currency, N newBalance);
 }

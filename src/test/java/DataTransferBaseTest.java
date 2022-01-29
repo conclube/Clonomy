@@ -16,35 +16,6 @@ public class DataTransferBaseTest {
         dataTransferBase = new DataTransferBase<>();
     }
 
-    @Test
-    void testIsSnapshotAbsentAfterInstantiation() {
-        assertNull(dataTransferBase.snapshot());
-    }
-
-    @Test
-    void testSetAndGet() {
-        MockSnapshot<?> snapshot = new MockSnapshot<>(null);
-        dataTransferBase.setSnapshot(snapshot);
-        assertSame(snapshot, dataTransferBase.snapshot());
-    }
-
-    @Test
-    void testEdit() {
-        var ref = new Object() {
-            MockSnapshot<?> snapshot = new MockSnapshot<>(null);
-        };
-
-        dataTransferBase.setSnapshot(ref.snapshot);
-        dataTransferBase.editSnapshot(current -> {
-            assertSame(ref.snapshot, current);
-
-            ref.snapshot = ref.snapshot.copy();
-            return ref.snapshot;
-        });
-
-        assertSame(ref.snapshot, dataTransferBase.snapshot());
-    }
-
     /*
     Tests the atomicity of DataTransferBase::editSnapshot
     by simulating a race condition with 100 threads manipulating

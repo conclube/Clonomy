@@ -1,9 +1,16 @@
+import me.conclure.annotation.AlwaysNew;
+import me.conclure.annotation.Nullable;
 import me.conclure.model.generic.Snapshot;
 
+/*
+This is a special mock, given that Snapshot is an "immutable builder"
+the methods MockSnapshot::object will be used as a way to mock the pattern
+that all the other implementations of Snapshot must follow.
+ */
 public class MockSnapshot<O> implements Snapshot {
-    private final O object;
+    final O object;
 
-    public MockSnapshot(O object) {
+    MockSnapshot(O object) {
         this.object = object;
     }
 
