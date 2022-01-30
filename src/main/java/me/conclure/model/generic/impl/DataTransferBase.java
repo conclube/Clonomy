@@ -21,28 +21,28 @@ public class DataTransferBase<S extends Snapshot> implements DataTransfer<S> {
     }
 
     @SuppressWarnings("unused")
-    private volatile S value;
+    private volatile Snapshot value;
 
     @SuppressWarnings("unchecked")
     @Override
     public S snapshot() {
-        return (S) VALUE.getAcquire(this);
+        return (S) this.value;
     }
 
     @Override
     public void setSnapshot(S data) {
-        VALUE.setRelease(this, data);
+        this.value = data;
     }
 
     @Override
     public void editSnapshot(Function<? super S, ? extends S> editor) {
-        S prev = snapshot(), next = null;
+        S prev = this.snapshot(), next = null;
         for (boolean haveNext = false;;) {
             if (!haveNext)
                 next = editor.apply(prev);
             if (VALUE.weakCompareAndSet(this,prev,next))
                 return;
-            haveNext = (prev == (prev = snapshot()));
+            haveNext = (prev == (prev = this.snapshot()));
         }
     }
 }
