@@ -1,18 +1,21 @@
 plugins {
-    java
+    `java-library`
 }
 
 group = "me.conclure"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     mavenCentral()
 }
 
 dependencies {
+    compileOnly("org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
     testImplementation("org.mockito:mockito-core:4.3.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }
 
 tasks.getByName<Test>("test") {
