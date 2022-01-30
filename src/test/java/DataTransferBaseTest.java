@@ -1,11 +1,10 @@
-import me.conclure.model.generic.Snapshot;
 import me.conclure.model.generic.impl.DataTransferBase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Phaser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataTransferBaseTest {
     @SuppressWarnings("rawtypes")
@@ -13,51 +12,42 @@ public class DataTransferBaseTest {
 
     @BeforeEach
     void setUp() {
-        dataTransferBase = new DataTransferBase<>();
+        this.dataTransferBase = new DataTransferBase<>();
     }
 
     /*
     Tests the atomicity of DataTransferBase::editSnapshot
-    by simulating a race condition with 100 threads manipulating
-    a shared variable from DataTransferBase.
+    by simulating a race condition with x amount of threads
+    manipulating a shared variable from DataTransferBase.
      */
     @Test
     void testEditInMultipleThreads() {
         MockSnapshot<Integer> snapshot = new MockSnapshot<>(0);
-        dataTransferBase.setSnapshot(snapshot);
-        var threadAmount = 100;
-        var countAmount = 100_000;
+        this.dataTransferBase.setSnapshot(snapshot);
+        var threadAmount = 50;
+        var countAmount = 200_000;
         var expectedTotalCountAmount = countAmount * threadAmount;
 
-        CountDownLatch startRaceLatch = new CountDownLatch(1);
-        CountDownLatch finishRaceLatch = new CountDownLatch(threadAmount);
+        Phaser phaser = new Phaser();
+        phaser.bulkRegister(threadAmount);
 
         for (int i = 0; i < threadAmount; i++) {
             new Thread(() -> {
-                try {
-                    startRaceLatch.await();
-                } catch (InterruptedException e) {
-                    fail(e);
-                }
+                phaser.arriveAndAwaitAdvance();
                 for (int j = 0; j < countAmount; j++) {
-                    dataTransferBase.editSnapshot(current -> {
+                    this.dataTransferBase.editSnapshot(current -> {
                         final Integer integer = (Integer) current.object();
                         //noinspection unchecked
                         return current.object(integer + 1);
                     });
                 }
-                finishRaceLatch.countDown();
+                phaser.arrive();
             }).start();
         }
 
-        startRaceLatch.countDown();
+        phaser.awaitAdvance(0);
+        phaser.awaitAdvance(1);
 
-        try {
-            finishRaceLatch.await();
-        } catch (InterruptedException e) {
-            fail(e);
-        }
-
-        assertEquals(dataTransferBase.snapshot().object(), expectedTotalCountAmount);
+        assertEquals(this.dataTransferBase.snapshot().object(), expectedTotalCountAmount);
     }
 }
