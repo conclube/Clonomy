@@ -1,5 +1,3 @@
-import me.conclure.annotation.AlwaysNew;
-import me.conclure.annotation.Nullable;
 import me.conclure.model.generic.Snapshot;
 
 /*

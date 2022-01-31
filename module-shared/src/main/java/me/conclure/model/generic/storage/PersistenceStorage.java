@@ -1,8 +1,7 @@
 package me.conclure.model.generic.storage;
 
-import me.conclure.annotation.NonNull;
+import me.conclure.clonomy.annotations.NonNull;
 import me.conclure.model.generic.DataTransfer;
-import me.conclure.model.generic.Snapshot;
 
 @NonNull
 public interface PersistenceStorage<D extends DataTransfer<?>> {

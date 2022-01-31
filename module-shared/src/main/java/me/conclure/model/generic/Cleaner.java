@@ -1,8 +1,8 @@
 
 package me.conclure.model.generic;
 
-import me.conclure.annotation.NonNull;
-import me.conclure.annotation.ThreadSafe;
+import me.conclure.clonomy.annotations.NonNull;
+import me.conclure.clonomy.annotations.ThreadSafe;
 
 @ThreadSafe
 @NonNull

@@ -1,7 +1,6 @@
 package me.conclure.model.generic.storage.impl;
 
 import me.conclure.model.generic.DataTransfer;
-import me.conclure.model.generic.Snapshot;
 import me.conclure.model.generic.storage.AsyncPersistenceStorage;
 import me.conclure.model.generic.storage.PersistenceStorage;
 

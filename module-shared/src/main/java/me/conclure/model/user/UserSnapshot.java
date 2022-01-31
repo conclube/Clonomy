@@ -1,6 +1,6 @@
 package me.conclure.model.user;
 
-import me.conclure.annotation.AlwaysNew;
+import me.conclure.clonomy.annotations.AlwaysNew;
 import me.conclure.model.generic.Snapshot;
 
 public interface UserSnapshot extends Snapshot {

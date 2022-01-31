@@ -5,7 +5,6 @@ import me.conclure.model.generic.Snapshot;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class DataTransferBase<S extends Snapshot> implements DataTransfer<S> {

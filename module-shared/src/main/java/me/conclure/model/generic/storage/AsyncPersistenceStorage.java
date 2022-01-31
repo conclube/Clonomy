@@ -1,9 +1,8 @@
 package me.conclure.model.generic.storage;
 
-import me.conclure.annotation.NonNull;
-import me.conclure.annotation.ThreadSafe;
+import me.conclure.clonomy.annotations.NonNull;
+import me.conclure.clonomy.annotations.ThreadSafe;
 import me.conclure.model.generic.DataTransfer;
-import me.conclure.model.generic.Snapshot;
 
 import java.util.concurrent.CompletableFuture;
 

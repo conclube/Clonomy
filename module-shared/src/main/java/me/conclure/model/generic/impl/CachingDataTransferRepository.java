@@ -2,7 +2,6 @@ package me.conclure.model.generic.impl;
 
 import me.conclure.model.generic.DataTransfer;
 import me.conclure.model.generic.CachingRepository;
-import me.conclure.model.generic.Snapshot;
 
 import java.util.Collection;
 import java.util.Iterator;
