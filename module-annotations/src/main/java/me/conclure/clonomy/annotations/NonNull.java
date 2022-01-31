@@ -1,4 +1,4 @@
-package me.conclure.annotation;
+package me.conclure.clonomy.annotations;
 
 import java.lang.annotation.*;
 
@@ -11,8 +11,8 @@ import java.lang.annotation.*;
         ElementType.CONSTRUCTOR,
 })
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(Nullable.Repeat.class)
-public @interface Nullable {
+@Repeatable(NonNull.Repeat.class)
+public @interface NonNull {
     @Target({
             ElementType.TYPE,
             ElementType.ANNOTATION_TYPE,
@@ -23,6 +23,6 @@ public @interface Nullable {
     })
     @Retention(RetentionPolicy.RUNTIME)
     @interface Repeat {
-        Nullable[] value();
+        NonNull[] value();
     }
 }

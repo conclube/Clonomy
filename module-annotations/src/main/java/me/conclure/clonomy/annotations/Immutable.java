@@ -1,4 +1,4 @@
-package me.conclure.annotation;
+package me.conclure.clonomy.annotations;
 
 import java.lang.annotation.*;
 
@@ -11,9 +11,8 @@ import java.lang.annotation.*;
         ElementType.CONSTRUCTOR,
 })
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(SoftNonNull.Repeat.class)
-public @interface SoftNonNull {
-
+@Repeatable(Immutable.Repeat.class)
+public @interface Immutable {
     @Target({
             ElementType.TYPE,
             ElementType.ANNOTATION_TYPE,
@@ -24,6 +23,6 @@ public @interface SoftNonNull {
     })
     @Retention(RetentionPolicy.RUNTIME)
     @interface Repeat {
-        SoftNonNull[] value();
+        Immutable[] value();
     }
 }
