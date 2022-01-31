@@ -15,13 +15,13 @@ public final class ClonomyBringer {
         ClonomyBringer.service = service;
     }
 
-    static Optional<Clonomy> bring() {
-        return Optional.ofNullable(ClonomyBringer.service);
-    }
-
     static Optional<Clonomy> abort() {
         Optional<Clonomy> pastService = Optional.ofNullable(ClonomyBringer.service);
         service = null;
         return pastService;
+    }
+
+    public static Optional<Clonomy> bring() {
+        return Optional.ofNullable(ClonomyBringer.service);
     }
 }
