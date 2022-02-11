@@ -36,9 +36,21 @@ public interface UserManagerInterface {
 
     CompletableFuture<Void> loadAsync(UserDataTransfer transfer);
 
+    UserDataTransfer loadAndGet(UUID id);
+
+    UserDataTransfer saveAndGet(UUID id);
+
+    CompletableFuture<UserDataTransfer> loadAndGetAsync(UUID id);
+
+    CompletableFuture<UserDataTransfer> saveAndGetAsync(UUID id);
+
     void loadIfOffline(UserDataTransfer transfer);
 
     CompletableFuture<Void> loadIfOfflineAsync(UserDataTransfer transfer);
+
+    UserDataTransfer loadIfOfflineAndGet(UUID id);
+
+    CompletableFuture<UserDataTransfer> loadIfOfflineAndGetAsync(UUID id);
 
     void edit(UUID id, Consumer<UserDataTransfer> consumer);
 
