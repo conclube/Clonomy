@@ -1,14 +1,14 @@
-import me.conclure.model.generic.impl.DataTransferBase;
+import me.conclure.clonomy.misc.util.Nil;
+import me.conclure.clonomy.model.generic.impl.DataTransferBase;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
 import java.util.concurrent.Phaser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataTransferBaseTest {
-    @SuppressWarnings("rawtypes")
-    DataTransferBase<MockSnapshot> dataTransferBase;
+    DataTransferBase<MockSnapshot<Integer>> dataTransferBase;
 
     @BeforeEach
     void setUp() {
@@ -17,15 +17,15 @@ public class DataTransferBaseTest {
 
     /*
     Tests the atomicity of DataTransferBase::editSnapshot
-    by simulating a race condition with x amount of threads
-    manipulating a shared variable from DataTransferBase.
+    by attempting to simulate a race condition with x amount of threads
+    that manipulate a shared variable from DataTransferBase.
      */
-    @Test
+    @RepeatedTest(10)
     void testEditInMultipleThreads() {
         MockSnapshot<Integer> snapshot = new MockSnapshot<>(0);
         this.dataTransferBase.setSnapshot(snapshot);
-        var threadAmount = 50;
-        var countAmount = 200_000;
+        var threadAmount = 1_000;
+        var countAmount = 10_000;
         var expectedTotalCountAmount = countAmount * threadAmount;
 
         Phaser phaser = new Phaser();
@@ -35,11 +35,9 @@ public class DataTransferBaseTest {
             new Thread(() -> {
                 phaser.arriveAndAwaitAdvance();
                 for (int j = 0; j < countAmount; j++) {
-                    this.dataTransferBase.editSnapshot(current -> {
-                        final Integer integer = (Integer) current.object();
-                        //noinspection unchecked
-                        return current.object(integer + 1);
-                    });
+                    this.dataTransferBase.editSnapshot(current -> current
+                            .map(theSnapshot -> theSnapshot.object(theSnapshot.object+1))
+                    );
                 }
                 phaser.arrive();
             }).start();
@@ -48,6 +46,6 @@ public class DataTransferBaseTest {
         phaser.awaitAdvance(0);
         phaser.awaitAdvance(1);
 
-        assertEquals(this.dataTransferBase.snapshot().object(), expectedTotalCountAmount);
+        assertEquals(this.dataTransferBase.snapshot().map(MockSnapshot::object).value(), expectedTotalCountAmount);
     }
 }

@@ -1,4 +1,4 @@
-import me.conclure.model.generic.Snapshot;
+import me.conclure.clonomy.model.generic.Snapshot;
 
 /*
 This is a special mock, given that Snapshot is an "immutable builder"
