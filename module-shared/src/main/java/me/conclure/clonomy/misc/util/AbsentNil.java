@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public sealed interface AbsentNil<T> extends Nil<T> permits AbsentNil.Impl {
@@ -65,6 +66,11 @@ public sealed interface AbsentNil<T> extends Nil<T> permits AbsentNil.Impl {
     }
 
     @Override
+    default Nil<T> orFlatGet(Supplier<Nil<T>> supplier) {
+        return supplier.get();
+    }
+
+    @Override
     default boolean isAbsent() {
         return true;
     }
@@ -116,6 +122,11 @@ public sealed interface AbsentNil<T> extends Nil<T> permits AbsentNil.Impl {
     @Override
     default <R> AbsentNil<R> flatMap(Function<T, Nil<R>> function) {
         return Nil.absent();
+    }
+
+    @Override
+    default <R, A> R collect(Collector<T, A, R> collector) {
+        return null;
     }
 
     @Override

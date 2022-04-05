@@ -2,11 +2,16 @@ package me.conclure.clonomy.misc.util;
 
 import me.conclure.clonomy.annotations.Nullable;
 
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public sealed interface Nil<T> permits PresentNil, AbsentNil {
@@ -25,6 +30,15 @@ public sealed interface Nil<T> permits PresentNil, AbsentNil {
         return Nil.present(value);
     }
 
+    static <T> Nil<T> obtain(Callable<@Nullable T> supplier) {
+        try {
+            T t = supplier.call();
+            return Nil.optional(t);
+        } catch (Exception e) {
+            return Nil.absent();
+        }
+    }
+
     AbsentNil<T> assertAbsent();
 
     PresentNil<T> assertPresent();
@@ -36,9 +50,11 @@ public sealed interface Nil<T> permits PresentNil, AbsentNil {
 
     T orGetValue(Supplier<T> supplier);
 
-    Nil<T> or(@Nullable T elseValue);;
+    Nil<T> or(@Nullable T elseValue);
 
     Nil<T> orGet(Supplier<@Nullable T> supplier);
+
+    Nil<T> orFlatGet(Supplier<Nil<T>> supplier);
 
     boolean isAbsent();
 
@@ -62,7 +78,9 @@ public sealed interface Nil<T> permits PresentNil, AbsentNil {
 
     Stream<T> stream();
 
-    default CompletableFuture<T> future() {
+    <R,A> R collect(Collector<T,A,R> collector);
+
+    default CompletableFuture<@Nullable T> future() {
         return CompletableFuture.completedFuture(this.value());
     }
 }

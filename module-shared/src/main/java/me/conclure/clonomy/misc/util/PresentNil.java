@@ -3,11 +3,9 @@ package me.conclure.clonomy.misc.util;
 import me.conclure.clonomy.annotations.NonNull;
 import me.conclure.clonomy.annotations.Nullable;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public sealed interface PresentNil<T> extends Nil<T> permits PresentNil.Impl {
@@ -61,6 +59,11 @@ public sealed interface PresentNil<T> extends Nil<T> permits PresentNil.Impl {
 
     @Override
     default PresentNil<T> orGet(Supplier<@Nullable T> supplier) {
+        return this;
+    }
+
+    @Override
+    default PresentNil<T> orFlatGet(Supplier<Nil<T>> supplier) {
         return this;
     }
 
@@ -121,6 +124,11 @@ public sealed interface PresentNil<T> extends Nil<T> permits PresentNil.Impl {
     @Override
     default <R> Nil<R> flatMap(Function<T, Nil<R>> function) {
         return function.apply(this.value());
+    }
+
+    @Override
+    default <R, A> R collect(Collector<T, A, R> collector) {
+        return null;
     }
 
     @Override
