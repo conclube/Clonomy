@@ -6,4 +6,7 @@ public interface CurrencyHolder {
     CurrencyHolderType type();
 
     boolean isSupportedBy(Currency currency);
+
+
+
 }
