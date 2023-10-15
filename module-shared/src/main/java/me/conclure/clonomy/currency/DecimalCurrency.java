@@ -1,4 +1,9 @@
 package me.conclure.clonomy.currency;
 
-public interface DecimalCurrency implements Currency {
+public non-sealed class DecimalCurrency implements Currency {
+
+    @Override
+    public <R extends Number> R query(CurrencyQuery<R> query) {
+        return null;
+    }
 }
