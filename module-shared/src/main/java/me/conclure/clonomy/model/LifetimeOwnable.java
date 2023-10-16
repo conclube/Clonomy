@@ -1,6 +1,6 @@
 package me.conclure.clonomy.model;
 
-public interface GarbageCollectable {
+public interface LifetimeOwnable extends Identifiable {
 
     void mark();
 
