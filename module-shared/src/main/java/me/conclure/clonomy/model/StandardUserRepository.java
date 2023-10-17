@@ -21,6 +21,6 @@ public class StandardUserRepository implements UserRepository {
         //else we risk losing the user during creation
         @SuppressWarnings("MismatchedReadAndWriteOfArray")
         User[] user = new User[1];
-        return this.map.computeIfAbsent(identifier, key -> () -> new WeakReference<>(user[0] = new StandardUser(key)).get()).get();
+        return this.map.computeIfAbsent(identifier, key -> new WeakReference<>(user[0] = new StandardUser(key))::get).get();
     }
 }
