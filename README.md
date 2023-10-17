@@ -15,3 +15,9 @@ A work in progress economy plugin which aims to be flexible, feature rich and ac
 - Support choice of message brokers like Kafka, QuickMQ and RabbitMQ.
 - Interoperable integration with existing APIs on specific platforms. For instance support Vault on Bukkit.
 - Configurability for end consumers.
+
+- Multiple currencies
+- Banks exist
+- Users can have multiple (or just one) bank account at a bank
+- A bank supports some or all currencies
+- 

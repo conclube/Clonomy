@@ -5,7 +5,8 @@ import me.conclure.clonomy.currency.Currency;
 public enum StandardCurrencyHolderType implements CurrencyHolderType {
     USER,
     BANK,
-    ACCOUNT;
+    ACCOUNT,
+    BANK_ACCOUNT;
 
     @Override
     public boolean isSupportedBy(Currency currency) {
