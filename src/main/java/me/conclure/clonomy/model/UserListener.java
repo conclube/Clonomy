@@ -35,14 +35,16 @@ public class UserListener implements Listener {
         this.onlineUsers = Collections.newSetFromMap(new IdentityHashMap<>());
     }
 
-    @EventHandler public void onConnect(AsyncPlayerPreLoginEvent event) {
+    @EventHandler
+    public void onConnect(AsyncPlayerPreLoginEvent event) {
         var uniqueId = Identifier.uuid(event.getUniqueId());
         var user = this.userRepository.get(uniqueId);
         //load user data
         this.connectionCache.put(uniqueId,user);
     }
 
-    @EventHandler public void onLogin(PlayerLoginEvent event) {
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event) {
         var uniqueId = Identifier.uuid(event.getPlayer().getUniqueId());
         var user = this.connectionCache.getIfPresent(uniqueId);
 
@@ -55,7 +57,8 @@ public class UserListener implements Listener {
     }
 
 
-    @EventHandler public void onQuit(PlayerQuitEvent event) {
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
         var uniqueId = Identifier.uuid(event.getPlayer().getUniqueId());
         var user = this.userRepository.get(uniqueId);
         this.onlineUsers.remove(user);
